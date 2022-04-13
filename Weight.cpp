@@ -152,7 +152,7 @@ bool Weight::hasMaxWeight() const noexcept
 
 float Weight::getWeight() const noexcept
 {
-return _weight;
+    return _weight;
 }
 
 float Weight::getWeight(Weight::UnitOfWeight weightUnits) const noexcept
@@ -162,27 +162,34 @@ float Weight::getWeight(Weight::UnitOfWeight weightUnits) const noexcept
 
 float Weight::getMaxWeight() const noexcept
 {
-return _maxWeight;
+    return _maxWeight;
 }
 
 Weight::UnitOfWeight Weight::getUnitOfWeight() const noexcept
 {
-return _unitOfWeight;
+    return _unitOfWeight;
 }
 
 void Weight::setWeight(float newWeight)
 {
-
+    if(isWeightValid(newWeight))
+    {
+        _weight = newWeight;
+    }
 }
 
 void Weight::setWeight(float newWeight, Weight::UnitOfWeight weightUnits)
 {
-
+    if(isWeightValid(newWeight))
+    {
+        _weight = newWeight;
+        _unitOfWeight = weightUnits;
+    }
 }
 
 bool Weight::isWeightValid(float checkWeight) const noexcept
 {
-    return false;
+    return (checkWeight > 0) ? true : false;
 }
 
 bool Weight::validate() const noexcept
