@@ -29,10 +29,10 @@ private:  /////////////////////////////////// Private Member Variables /////////
     bool bHasMax; ///<
 
 public:  /////////////////////////////////// Constants ///////////////////////////////////
-    static constexpr float UNKNOWN_WEIGHT = -1.0;
-    static constexpr float KILOS_IN_A_POUND = 0.453592;
-    static constexpr float SLUGS_IN_A_POUND = 0.031081;
-    static constexpr UnitOfWeight DEFAULT_UNIT_OF_WEIGHT = POUNDS;
+    static const float UNKNOWN_WEIGHT;
+    static const float KILOS_IN_A_POUND;
+    static const float SLUGS_IN_A_POUND;
+    static const UnitOfWeight DEFAULT_UNIT_OF_WEIGHT;
     static const std::string POUND_LITERAL;
     static const std::string SLUG_LITERAL;
     static const std::string KILOGRAM_LITERAL;

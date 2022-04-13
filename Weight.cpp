@@ -10,10 +10,15 @@
 ///////////////////////////////////////////////////////////////////////////////
 #include "Weight.h"
 
+
+/////////////////////////////////// Constants ///////////////////////////////////
+const float Weight::UNKNOWN_WEIGHT = -1.0;
+const float Weight::KILOS_IN_A_POUND = 0.453592;
+const float Weight::SLUGS_IN_A_POUND = 0.031081;
+const Weight::UnitOfWeight Weight::DEFAULT_UNIT_OF_WEIGHT = POUNDS;
 const std::string Weight::POUND_LITERAL = "LBs";
 static const std::string SLUG_LITERAL = "SLUGs";
 static const std::string KILOGRAM_LITERAL = "KGs";
-
 
 /////////////////////////////////// Public Class Methods ///////////////////////////////////
 bool Weight::isWeightKnown() const noexcept {
