@@ -23,7 +23,7 @@ public:  /////////////////////////////////// Public Member Variables ///////////
 
 private:  /////////////////////////////////// Private Member Variables ///////////////////////////////////
     UnitOfWeight _unitOfWeight{DEFAULT_UNIT_OF_WEIGHT}; // Default = POUNDS
-    float _weight{UNKNOWN_WEIGHT}; ///< weight of animal in units set by _unitOfWeight
+    float _weight; ///< weight of animal in units set by _unitOfWeight
     float _maxWeight{UNKNOWN_WEIGHT}; ///< max weight of an animal in units set by _unitOfWeight
     bool bIsKnown; ///<
     bool bHasMax; ///<
@@ -38,9 +38,15 @@ public:  /////////////////////////////////// Constants /////////////////////////
     static const std::string KILOGRAM_LITERAL;
 
 public:  /////////////////////////////////// Public Class Methods ///////////////////////////////////
-    UnitOfWeight getUnitOfWeight() const noexcept;
+    bool isWeightKnown() const noexcept;
+
+    bool hasMaxWeight() const noexcept;
 
     float getWeight() const noexcept;
+
+    float getWeight(UnitOfWeight weightUnits) const noexcept;
+
+    UnitOfWeight getUnitOfWeight() const noexcept;
 
     float getMaxWeight() const noexcept;
 
@@ -68,9 +74,6 @@ public:  /////////////////////////////////// Class Constructors ////////////////
 
     // #7 explicit with all member variables provided as parameters
     Weight(float newWeight, UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept;
-
-
-
 
 };
 
