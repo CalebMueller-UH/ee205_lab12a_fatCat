@@ -20,29 +20,71 @@ static const std::string SLUG_LITERAL = "SLUGs";
 static const std::string KILOGRAM_LITERAL = "KGs";
 
 /////////////////////////////////// Static Methods ///////////////////////////////////
-float Weight::fromKilogramToPound(float weightInKilos) noexcept
+float Weight::fromKilogramsToPounds(float weightInKilos) noexcept
 {
     return weightInKilos / KILOS_IN_A_POUND;
 }
 
-float Weight::fromPoundToKilogram(float weightInPounds) noexcept
+float Weight::fromPoundsToKilograms(float weightInPounds) noexcept
 {
     return weightInPounds * KILOS_IN_A_POUND;
 }
 
-float Weight::fromSlugToPound(float weightInSlugs) noexcept
+float Weight::fromSlugsToPounds(float weightInSlugs) noexcept
 {
     return weightInSlugs / SLUGS_IN_A_POUND;
 }
 
-float Weight::fromPoundToSlug(float weightInPounds) noexcept
+float Weight::fromPoundsToSlugs(float weightInPounds) noexcept
 {
     return weightInPounds * SLUGS_IN_A_POUND;
 }
 
 float Weight::convertWeight(float fromWeight, Weight::UnitOfWeight fromUnit, Weight::UnitOfWeight toUnit) noexcept
 {
-return 0;
+    switch(fromUnit)
+    {
+        case POUNDS:
+            switch(toUnit)
+            {
+                case POUNDS:
+                    return fromWeight;
+                case SLUGS:
+                    return fromPoundsToSlugs(fromWeight);
+                case KILOS:
+                    return fromPoundsToKilograms(fromWeight);
+                default:
+                    assert(0);
+            }
+
+        case SLUGS:
+            switch(toUnit)
+            {
+            case POUNDS:
+                return fromSlugsToPounds(fromWeight);
+            case SLUGS:
+                return fromWeight;
+            case KILOS:
+                return fromPoundsToKilograms(fromSlugsToPounds(fromWeight));
+            default:
+                assert(0);
+            }
+
+        case KILOS:
+            switch(toUnit)
+            {
+            case POUNDS:
+                return fromKilogramsToPounds(fromWeight);
+            case SLUGS:
+                return fromPoundsToSlugs(fromKilogramsToPounds(fromWeight));
+            case KILOS:
+                return fromWeight;
+            default:
+                assert(0);
+            }
+        default:
+            assert(0);
+    }
 }
 
 /////////////////////////////////// Class Constructors ///////////////////////////////////
