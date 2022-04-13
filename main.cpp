@@ -57,12 +57,20 @@ int main() {
         assert(tw->getMaxWeight() == 48.7F);
         delete tw;
     }
-    // Testing Constructor #7
+    // Testing Constructor #7a
     {
         auto *tw = new Weight(1.23, Weight::POUNDS, 45.6);
         assert(tw->getWeight() == 1.23F);
         assert(tw->getUnitOfWeight() == Weight::POUNDS);
         assert(tw->getMaxWeight() == 45.6F);
+        delete tw;
+    }
+    // Testing Constructor #7b
+    {
+        auto *tw = new Weight(-1.23, Weight::POUNDS, -45.6);
+        assert(tw->getWeight() == Weight::UNKNOWN_WEIGHT);
+        assert(tw->getUnitOfWeight() == Weight::POUNDS);
+        assert(tw->getMaxWeight() == Weight::UNKNOWN_WEIGHT);
         delete tw;
     }
 

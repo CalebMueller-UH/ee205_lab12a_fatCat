@@ -101,16 +101,22 @@ Weight::Weight(float newWeight, float newMaxWeight) noexcept : Weight(newWeight,
 // ↓ #6
 Weight::Weight(UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept : Weight(UNKNOWN_WEIGHT, newUnitOfWeight, newMaxWeight) {}
 // ↓ #7
-Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept : _weight{newWeight}, _unitOfWeight{newUnitOfWeight}, _maxWeight{newMaxWeight}
+Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept : _unitOfWeight{newUnitOfWeight}
 {
-    if(newWeight != 0 && newWeight != UNKNOWN_WEIGHT)
+    if(isWeightValid(newWeight))
     {
+        _weight = newWeight;
         bIsKnown = true;
+    } else{
+        _weight = UNKNOWN_WEIGHT;
     }
 
-    if(newMaxWeight != 0 && newMaxWeight != UNKNOWN_WEIGHT)
+    if(isWeightValid(newMaxWeight))
     {
+        _maxWeight = newMaxWeight;
         bHasMax = true;
+    } else{
+        _maxWeight = UNKNOWN_WEIGHT;
     }
 }
 
@@ -142,12 +148,12 @@ Weight &Weight::operator+=(float rhs_addToWeight)
 /////////////////////////////////// Public Class Methods ///////////////////////////////////
 bool Weight::isWeightKnown() const noexcept
 {
-    return false;
+    return (isWeightValid(_weight)) ? true : false;
 }
 
 bool Weight::hasMaxWeight() const noexcept
 {
-    return false;
+    return (isWeightValid(_maxWeight)) ? true : false;
 }
 
 float Weight::getWeight() const noexcept
@@ -189,7 +195,7 @@ void Weight::setWeight(float newWeight, Weight::UnitOfWeight weightUnits)
 
 bool Weight::isWeightValid(float checkWeight) const noexcept
 {
-    return (checkWeight > 0) ? true : false;
+    return (checkWeight > 0 && checkWeight != UNKNOWN_WEIGHT) ? true : false;
 }
 
 bool Weight::validate() const noexcept
@@ -201,6 +207,10 @@ void Weight::dump() const noexcept
 {
 }
 
-void Weight::setMaxWeight(float newMaxWeight) {
-
+void Weight::setMaxWeight(float newMaxWeight)
+{
+    if(isWeightValid(newMaxWeight))
+    {
+        _maxWeight = newMaxWeight;
+    }
 }
