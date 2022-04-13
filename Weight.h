@@ -67,32 +67,18 @@ private:  /////////////////////////////////// Private Member Variables /////////
     bool bIsKnown{false}; ///< bool flag for if _weight is set to a valid entry greater than 0 and not unknown
     bool bHasMax{false}; ///< bool flag for if _maxWeight is set to a valid entry greater than 0 and not unknown
 
-
 public:  /////////////////////////////////// Public Class Methods ///////////////////////////////////
     bool isWeightKnown() const noexcept;
-
     bool hasMaxWeight() const noexcept;
-
     float getWeight() const noexcept;
-
     float getWeight(UnitOfWeight weightUnits) const noexcept;
-
     float getMaxWeight() const noexcept;
-
     UnitOfWeight getUnitOfWeight() const noexcept;
-
     void setWeight(float newWeight);
-
     void setWeight(float newWeight, UnitOfWeight weightUnits);
-
     bool isWeightValid(float checkWeight) const noexcept;
-
     bool validate() const noexcept;
-
     void dump() const noexcept;
-
-
-
     void setMaxWeight(float newMaxWeight);
 
 

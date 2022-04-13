@@ -202,7 +202,7 @@ bool Weight::isWeightValid(float checkWeight) const noexcept
 
 bool Weight::validate() const noexcept
 {
-    return false;
+    return (isWeightValid(_weight) && isWeightValid(_maxWeight)) ? true : false;
 }
 
 void Weight::dump() const noexcept
@@ -211,7 +211,7 @@ void Weight::dump() const noexcept
 
 void Weight::setMaxWeight(float newMaxWeight)
 {
-    if(isWeightValid(newMaxWeight))
+    if(isWeightValid(newMaxWeight) && !isWeightValid(_maxWeight))
     {
         _maxWeight = newMaxWeight;
     }
