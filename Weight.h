@@ -46,9 +46,41 @@ public:  /////////////////////////////////// Public Class Methods //////////////
 
     float getWeight(UnitOfWeight weightUnits) const noexcept;
 
+    float getMaxWeight() const noexcept;
+
     UnitOfWeight getUnitOfWeight() const noexcept;
 
-    float getMaxWeight() const noexcept;
+    void setWeight(float newWeight);
+
+    void setWeight(float newWeight, UnitOfWeight weightUnits);
+
+    bool isWeightValid(float checkWeight) const noexcept;
+
+    bool validate() const noexcept;
+
+    void dump() const noexcept;
+
+    bool operator==(const Weight &rhsWeight) const;
+
+    bool operator<(const Weight &rhsWeight) const;
+
+    bool operator+(const Weight &rhsAddToWeight) const;
+
+    Weight& operator+=(float rhs_addToWeight);
+
+    static float fromKilogramToPound(float kilogram) noexcept;
+
+    static float fromPoundToKilogram(float pound) noexcept;
+
+    static float fromSlugToPound(float slug) noexcept;
+
+    static float fromPoundToSlug(float pound) noexcept;
+
+    static float convertWeight(float fromWeight, UnitOfWeight fromUnit, UnitOfWeight toUnit) noexcept;
+
+
+    void setMaxWeight(float newMaxWeight);
+
 
 private:  /////////////////////////////////// Private Class Methods ///////////////////////////////////
 
