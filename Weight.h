@@ -11,8 +11,10 @@
 #ifndef EE205_LAB12A_FATCAT_WEIGHT_H
 #define EE205_LAB12A_FATCAT_WEIGHT_H
 
-#include <iostream>
+#include <ostream>
 #include <string>
+
+#include <assert.h>
 
 using namespace std;
 
@@ -30,10 +32,10 @@ public:  /////////////////////////////////// Constants /////////////////////////
     static const std::string KILOGRAM_LITERAL;
 
 public:  /////////////////////////////////// Static Methods ///////////////////////////////////
-    static float fromKilogramToPound(float kilogram) noexcept;
-    static float fromPoundToKilogram(float pound) noexcept;
-    static float fromSlugToPound(float slug) noexcept;
-    static float fromPoundToSlug(float pound) noexcept;
+    static float fromKilogramToPound(float weightInKilos) noexcept;
+    static float fromPoundToKilogram(float weightInPounds) noexcept;
+    static float fromSlugToPound(float weightInSlugs) noexcept;
+    static float fromPoundToSlug(float weightInPounds) noexcept;
     static float convertWeight(float fromWeight, UnitOfWeight fromUnit, UnitOfWeight toUnit) noexcept;
 
 public:  /////////////////////////////////// Class Constructors ///////////////////////////////////
