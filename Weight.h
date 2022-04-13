@@ -17,11 +17,25 @@
 using namespace std;
 
 class Weight {
-public:  /////////////////////////////////// Public Class Members ///////////////////////////////////
+
+public:  /////////////////////////////////// Public Member Variables ///////////////////////////////////
     enum UnitOfWeight { POUNDS, KILOS, SLUGS };
 
-    // Explicit Constructor with default values for resolving implicit call
-    Weight(UnitOfWeight unitOfWeight=DEFAULT_UNIT_OF_WEIGHT, float weight=UNKNOWN_WEIGHT);
+private:  /////////////////////////////////// Private Member Variables ///////////////////////////////////
+    UnitOfWeight _unitOfWeight{DEFAULT_UNIT_OF_WEIGHT}; // Default = POUNDS
+    float _weight{UNKNOWN_WEIGHT}; ///< weight of animal in units set by _unitOfWeight
+    float _maxWeight{UNKNOWN_WEIGHT}; ///< max weight of an animal in units set by _unitOfWeight
+    bool bIsKnown; ///<
+    bool bHasMax; ///<
+
+public:  /////////////////////////////////// Constants ///////////////////////////////////
+    static constexpr float UNKNOWN_WEIGHT = -1.0;
+    static constexpr float KILOS_IN_A_POUND = 0.453592;
+    static constexpr float SLUGS_IN_A_POUND = 0.031081;
+    static constexpr UnitOfWeight DEFAULT_UNIT_OF_WEIGHT = POUNDS;
+    static const std::string POUND_LITERAL;
+    static const std::string SLUG_LITERAL;
+    static const std::string KILOGRAM_LITERAL;
 
 public:  /////////////////////////////////// Public Class Methods ///////////////////////////////////
     UnitOfWeight getUnitOfWeight() const noexcept;
@@ -30,21 +44,33 @@ public:  /////////////////////////////////// Public Class Methods //////////////
 
     float getMaxWeight() const noexcept;
 
+private:  /////////////////////////////////// Private Class Methods ///////////////////////////////////
 
-public:  /////////////////////////////////// Constants ///////////////////////////////////
-    static constexpr float UNKNOWN_WEIGHT = -1.0;
-    static constexpr float KILOS_IN_A_POUND = 0.453592;
-    static constexpr float SLUGS_IN_A_POUND = 0.031081;
-    static constexpr UnitOfWeight DEFAULT_UNIT_OF_WEIGHT = POUNDS;
 
-    static const std::string POUND_LITERAL;
+public:  /////////////////////////////////// Class Constructors ///////////////////////////////////
+    // #1 Default Constructor: delegates to #9 with all default values
+    Weight() noexcept;
 
-private:  /////////////////////////////////// Private Member Variables ///////////////////////////////////
-    UnitOfWeight _unitOfWeight{DEFAULT_UNIT_OF_WEIGHT}; // Default = POUNDS
-    float _weight{UNKNOWN_WEIGHT}; ///< weight of animal in units set by _unitOfWeight
-    float _maxWeight{UNKNOWN_WEIGHT}; ///< max weight of an animal in units set by _unitOfWeight
-    bool bIsKnown; ///<
-    bool bHasMax; ///<
+    // #2 explicit with only weight parameter provided: delegates to #9 with default values for those not given
+    Weight(float newWeight);
+
+    // #3 explicit with only UnitOfWeight parameter provided: delegates to #9 with default values for those not given
+    Weight(UnitOfWeight newUnitOfWeight) noexcept;
+
+    // #4 explicit with only UnitOfWeight parameter provided: delegates to #9 with default values for those not given
+    Weight(float newWeight, UnitOfWeight newUnitOfWeight) noexcept;
+
+    // #5 explicit with newWeight and newMaxWeight provided: delegates to #9 with default value for UnitOfWeight
+    Weight(float newWeight, float newMaxWeight) noexcept;
+
+    // #6 explicit with newUnitOfWeight and newMaxWeight provided: delegates to #9 with default value for weight
+    Weight(UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept;
+
+    // #7 explicit with all member variables provided as parameters
+    Weight(float newWeight, UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept;
+
+
+
 
 };
 
