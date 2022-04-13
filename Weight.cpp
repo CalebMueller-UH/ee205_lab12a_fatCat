@@ -20,6 +20,64 @@ const std::string Weight::POUND_LITERAL = "LBs";
 static const std::string SLUG_LITERAL = "SLUGs";
 static const std::string KILOGRAM_LITERAL = "KGs";
 
+/////////////////////////////////// Static Methods ///////////////////////////////////
+float Weight::fromKilogramToPound(float kilogram) noexcept {
+return 0;
+}
+
+float Weight::fromPoundToKilogram(float pound) noexcept {
+return 0;
+}
+
+float Weight::fromSlugToPound(float slug) noexcept {
+return 0;
+}
+
+float Weight::fromPoundToSlug(float pound) noexcept {
+return 0;
+}
+
+float Weight::convertWeight(float fromWeight, Weight::UnitOfWeight fromUnit, Weight::UnitOfWeight toUnit) noexcept {
+return 0;
+}
+
+/////////////////////////////////// Class Constructors ///////////////////////////////////
+// ↓ #1
+Weight::Weight() noexcept : Weight(UNKNOWN_WEIGHT, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT){}
+// ↓ #2
+Weight::Weight(float newWeight) : Weight(newWeight, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT){}
+// ↓ #3
+Weight::Weight(Weight::UnitOfWeight newUnitOfWeight) noexcept : Weight(UNKNOWN_WEIGHT, newUnitOfWeight, UNKNOWN_WEIGHT) {}
+// ↓ #4
+Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight) noexcept : Weight(newWeight, newUnitOfWeight, UNKNOWN_WEIGHT) {}
+// ↓ #5
+Weight::Weight(float newWeight, float newMaxWeight) noexcept : Weight(newWeight, DEFAULT_UNIT_OF_WEIGHT, newMaxWeight) {}
+// ↓ #6
+Weight::Weight(UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept : Weight(UNKNOWN_WEIGHT, newUnitOfWeight, newMaxWeight) {}
+// ↓ #7
+Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept : _weight{newWeight}, _unitOfWeight{newUnitOfWeight}, _maxWeight{newMaxWeight}{}
+
+/////////////////////////////////// Operators ///////////////////////////////////
+bool Weight::operator==(const Weight &rhsWeight) const
+{
+    return false;
+}
+
+bool Weight::operator<(const Weight &rhsWeight) const
+{
+    return false;
+}
+
+bool Weight::operator+(const Weight &rhsAddToWeight) const
+{
+    return false;
+}
+
+Weight &Weight::operator+=(float rhs_addToWeight)
+{
+
+}
+
 /////////////////////////////////// Public Class Methods ///////////////////////////////////
 bool Weight::isWeightKnown() const noexcept {
     return false;
@@ -71,72 +129,6 @@ void Weight::dump() const noexcept
 {
 }
 
-bool Weight::operator==(const Weight &rhsWeight) const
-{
-    return false;
-}
-
-bool Weight::operator<(const Weight &rhsWeight) const
-{
-    return false;
-}
-
-bool Weight::operator+(const Weight &rhsAddToWeight) const
-{
-    return false;
-}
-
-Weight &Weight::operator+=(float rhs_addToWeight)
-{
-
-}
-
-float Weight::fromKilogramToPound(float kilogram) noexcept {
-    return 0;
-}
-
-float Weight::fromPoundToKilogram(float pound) noexcept {
-    return 0;
-}
-
-float Weight::fromSlugToPound(float slug) noexcept {
-    return 0;
-}
-
-float Weight::fromPoundToSlug(float pound) noexcept {
-    return 0;
-}
-
-float Weight::convertWeight(float fromWeight, Weight::UnitOfWeight fromUnit, Weight::UnitOfWeight toUnit) noexcept {
-    return 0;
-}
-
 void Weight::setMaxWeight(float newMaxWeight) {
 
 }
-
-/////////////////////////////////// Class Constructors ///////////////////////////////////
-// #1
-Weight::Weight() noexcept : Weight(UNKNOWN_WEIGHT, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT){}
-
-// #2
-Weight::Weight(float newWeight) : Weight(newWeight, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT){}
-
-// #3
-Weight::Weight(Weight::UnitOfWeight newUnitOfWeight) noexcept : Weight(UNKNOWN_WEIGHT, newUnitOfWeight, UNKNOWN_WEIGHT) {}
-
-// #4
-Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight) noexcept : Weight(newWeight, newUnitOfWeight, UNKNOWN_WEIGHT) {}
-
-// #5
-Weight::Weight(float newWeight, float newMaxWeight) noexcept : Weight(newWeight, DEFAULT_UNIT_OF_WEIGHT, newMaxWeight) {}
-
-// #6
-Weight::Weight(UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept : Weight(UNKNOWN_WEIGHT, newUnitOfWeight, newMaxWeight) {}
-
-// #7
-Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept : _weight{newWeight}, _unitOfWeight{newUnitOfWeight}, _maxWeight{newMaxWeight}{}
-
-
-
-

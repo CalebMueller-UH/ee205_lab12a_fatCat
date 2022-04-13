@@ -17,16 +17,8 @@
 using namespace std;
 
 class Weight {
-
-public:  /////////////////////////////////// Public Member Variables ///////////////////////////////////
+public:  /////////////////////////////////// Enumerations ///////////////////////////////////
     enum UnitOfWeight { POUNDS, KILOS, SLUGS };
-
-private:  /////////////////////////////////// Private Member Variables ///////////////////////////////////
-    UnitOfWeight _unitOfWeight{DEFAULT_UNIT_OF_WEIGHT}; // Default = POUNDS
-    float _weight; ///< weight of animal in units set by _unitOfWeight
-    float _maxWeight{UNKNOWN_WEIGHT}; ///< max weight of an animal in units set by _unitOfWeight
-    bool bIsKnown; ///<
-    bool bHasMax; ///<
 
 public:  /////////////////////////////////// Constants ///////////////////////////////////
     static const float UNKNOWN_WEIGHT;
@@ -36,6 +28,43 @@ public:  /////////////////////////////////// Constants /////////////////////////
     static const std::string POUND_LITERAL;
     static const std::string SLUG_LITERAL;
     static const std::string KILOGRAM_LITERAL;
+
+public:  /////////////////////////////////// Static Methods ///////////////////////////////////
+    static float fromKilogramToPound(float kilogram) noexcept;
+    static float fromPoundToKilogram(float pound) noexcept;
+    static float fromSlugToPound(float slug) noexcept;
+    static float fromPoundToSlug(float pound) noexcept;
+    static float convertWeight(float fromWeight, UnitOfWeight fromUnit, UnitOfWeight toUnit) noexcept;
+
+public:  /////////////////////////////////// Class Constructors ///////////////////////////////////
+    // ↓ #1 Default Constructor: delegates to #9 with all default values
+    Weight() noexcept;
+    // ↓ #2 explicit with only weight parameter provided: delegates to #9 with default values for those not given
+    Weight(float newWeight);
+    // ↓ #3 explicit with only UnitOfWeight parameter provided: delegates to #9 with default values for those not given
+    Weight(UnitOfWeight newUnitOfWeight) noexcept;
+    // ↓ #4 explicit with only UnitOfWeight parameter provided: delegates to #9 with default values for those not given
+    Weight(float newWeight, UnitOfWeight newUnitOfWeight) noexcept;
+    // ↓ #5 explicit with newWeight and newMaxWeight provided: delegates to #9 with default value for UnitOfWeight
+    Weight(float newWeight, float newMaxWeight) noexcept;
+    // ↓ #6 explicit with newUnitOfWeight and newMaxWeight provided: delegates to #9 with default value for weight
+    Weight(UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept;
+    // ↓ #7 explicit with all member variables provided as parameters
+    Weight(float newWeight, UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept;
+
+public:  /////////////////////////////////// Operators ///////////////////////////////////
+    bool operator==(const Weight &rhsWeight) const;
+    bool operator<(const Weight &rhsWeight) const;
+    bool operator+(const Weight &rhsAddToWeight) const;
+    Weight& operator+=(float rhs_addToWeight);
+
+private:  /////////////////////////////////// Private Member Variables ///////////////////////////////////
+    UnitOfWeight _unitOfWeight{DEFAULT_UNIT_OF_WEIGHT}; // Default = POUNDS
+    float _weight; ///< weight of animal in units set by _unitOfWeight
+    float _maxWeight{UNKNOWN_WEIGHT}; ///< max weight of an animal in units set by _unitOfWeight
+    bool bIsKnown; ///<
+    bool bHasMax; ///<
+
 
 public:  /////////////////////////////////// Public Class Methods ///////////////////////////////////
     bool isWeightKnown() const noexcept;
@@ -60,23 +89,6 @@ public:  /////////////////////////////////// Public Class Methods //////////////
 
     void dump() const noexcept;
 
-    bool operator==(const Weight &rhsWeight) const;
-
-    bool operator<(const Weight &rhsWeight) const;
-
-    bool operator+(const Weight &rhsAddToWeight) const;
-
-    Weight& operator+=(float rhs_addToWeight);
-
-    static float fromKilogramToPound(float kilogram) noexcept;
-
-    static float fromPoundToKilogram(float pound) noexcept;
-
-    static float fromSlugToPound(float slug) noexcept;
-
-    static float fromPoundToSlug(float pound) noexcept;
-
-    static float convertWeight(float fromWeight, UnitOfWeight fromUnit, UnitOfWeight toUnit) noexcept;
 
 
     void setMaxWeight(float newMaxWeight);
@@ -85,27 +97,6 @@ public:  /////////////////////////////////// Public Class Methods //////////////
 private:  /////////////////////////////////// Private Class Methods ///////////////////////////////////
 
 
-public:  /////////////////////////////////// Class Constructors ///////////////////////////////////
-    // #1 Default Constructor: delegates to #9 with all default values
-    Weight() noexcept;
-
-    // #2 explicit with only weight parameter provided: delegates to #9 with default values for those not given
-    Weight(float newWeight);
-
-    // #3 explicit with only UnitOfWeight parameter provided: delegates to #9 with default values for those not given
-    Weight(UnitOfWeight newUnitOfWeight) noexcept;
-
-    // #4 explicit with only UnitOfWeight parameter provided: delegates to #9 with default values for those not given
-    Weight(float newWeight, UnitOfWeight newUnitOfWeight) noexcept;
-
-    // #5 explicit with newWeight and newMaxWeight provided: delegates to #9 with default value for UnitOfWeight
-    Weight(float newWeight, float newMaxWeight) noexcept;
-
-    // #6 explicit with newUnitOfWeight and newMaxWeight provided: delegates to #9 with default value for weight
-    Weight(UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept;
-
-    // #7 explicit with all member variables provided as parameters
-    Weight(float newWeight, UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept;
 
 };
 
