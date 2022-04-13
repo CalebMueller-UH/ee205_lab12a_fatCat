@@ -61,7 +61,7 @@ public:  /////////////////////////////////// Operators /////////////////////////
     Weight& operator+=(float rhs_addToWeight);
 
 private:  /////////////////////////////////// Private Member Variables ///////////////////////////////////
-    UnitOfWeight _unitOfWeight{DEFAULT_UNIT_OF_WEIGHT}; // Default = POUNDS
+    UnitOfWeight _unitOfWeight; ///< Intentionally non-initialized so that it may be properly assigned during instantiation
     float _weight{UNKNOWN_WEIGHT}; ///< weight of animal in units set by _unitOfWeight
     float _maxWeight{UNKNOWN_WEIGHT}; ///< max weight of an animal in units set by _unitOfWeight
     bool bIsKnown{false}; ///< bool flag for if _weight is set to a valid entry greater than 0 and not unknown
