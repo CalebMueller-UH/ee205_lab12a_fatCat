@@ -157,7 +157,7 @@ return _weight;
 
 float Weight::getWeight(Weight::UnitOfWeight weightUnits) const noexcept
 {
-
+    return convertWeight(_weight, _unitOfWeight, weightUnits);
 }
 
 float Weight::getMaxWeight() const noexcept
