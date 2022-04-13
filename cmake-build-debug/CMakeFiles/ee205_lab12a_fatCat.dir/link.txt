@@ -1,1 +1,1 @@
-/usr/bin/c++ -g CMakeFiles/ee205_lab12a_fatCat.dir/main.cpp.o -o ee205_lab12a_fatCat 
+/usr/bin/c++ -g CMakeFiles/ee205_lab12a_fatCat.dir/main.cpp.o CMakeFiles/ee205_lab12a_fatCat.dir/Weight.cpp.o -o ee205_lab12a_fatCat 

@@ -227,6 +227,15 @@ ProcessorCount_cmd_nproc:FILEPATH=/usr/bin/nproc
 ProcessorCount_cmd_sysctl:FILEPATH=/usr/sbin/sysctl
 
 //Value Computed by CMake
+Project_BINARY_DIR:STATIC=/tmp/tmp.3lYw1HJo8O/cmake-build-debug
+
+//Value Computed by CMake
+Project_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+Project_SOURCE_DIR:STATIC=/tmp/tmp.3lYw1HJo8O
+
+//Value Computed by CMake
 ee205_lab12a_fatCat_BINARY_DIR:STATIC=/tmp/tmp.3lYw1HJo8O/cmake-build-debug
 
 //Value Computed by CMake

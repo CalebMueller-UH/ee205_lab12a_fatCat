@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/tmp/tmp.3lYw1HJo8O/Weight.cpp">
+			<Option target="ee205_lab12a_fatCat"/>
+		</Unit>
+		<Unit filename="/tmp/tmp.3lYw1HJo8O/Weight.h">
+			<Option target="ee205_lab12a_fatCat"/>
+		</Unit>
 		<Unit filename="/tmp/tmp.3lYw1HJo8O/main.cpp">
 			<Option target="ee205_lab12a_fatCat"/>
 		</Unit>
