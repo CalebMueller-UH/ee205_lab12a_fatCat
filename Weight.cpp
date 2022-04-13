@@ -107,7 +107,8 @@ Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newM
     {
         _weight = newWeight;
         bIsKnown = true;
-    } else{
+    } else
+    {
         _weight = UNKNOWN_WEIGHT;
     }
 
@@ -115,7 +116,8 @@ Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newM
     {
         _maxWeight = newMaxWeight;
         bHasMax = true;
-    } else{
+    } else
+    {
         _maxWeight = UNKNOWN_WEIGHT;
     }
 }
