@@ -74,5 +74,20 @@ int main() {
         delete tw;
     }
 
+    /////////////// Weight Unit Conversion Testing //////////////////
+    {
+        assert( Weight::convertWeight(1.0, Weight::POUNDS, Weight::POUNDS) == 1.0);
+        assert( Weight::convertWeight(1.0, Weight::POUNDS, Weight::KILOS) == Weight::KILOS_IN_A_POUND);
+        assert( Weight::convertWeight(1.0, Weight::POUNDS, Weight::SLUGS) == Weight::SLUGS_IN_A_POUND);
+
+        assert( Weight::convertWeight(1.0, Weight::KILOS, Weight::KILOS) == 1.0);
+        assert( Weight::convertWeight(1.0, Weight::KILOS, Weight::POUNDS) == 1 / Weight::KILOS_IN_A_POUND);
+        assert( Weight::convertWeight(1.0, Weight::KILOS, Weight::SLUGS) == 1 / (Weight::KILOS_IN_A_POUND / Weight::SLUGS_IN_A_POUND));
+
+        assert( Weight::convertWeight(1.0, Weight::SLUGS, Weight::SLUGS) == 1.0);
+        assert( Weight::convertWeight(1.0, Weight::SLUGS, Weight::KILOS) == (Weight::KILOS_IN_A_POUND / Weight::SLUGS_IN_A_POUND));
+        assert( Weight::convertWeight(1.0, Weight::SLUGS, Weight::POUNDS) == 1 / Weight::SLUGS_IN_A_POUND);
+    }
+
     return 0;
 }
