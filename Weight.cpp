@@ -15,9 +15,9 @@ const float Weight::UNKNOWN_WEIGHT = -1.0;
 const float Weight::KILOS_IN_A_POUND = 0.453592;
 const float Weight::SLUGS_IN_A_POUND = 0.031081;
 const Weight::UnitOfWeight Weight::DEFAULT_UNIT_OF_WEIGHT = POUNDS;
-const std::string Weight::POUND_LITERAL = "LBs";
-static const std::string SLUG_LITERAL = "SLUGs";
-static const std::string KILOGRAM_LITERAL = "KGs";
+const std::string Weight::POUND_LITERAL = "lbs";
+const std::string Weight::SLUG_LITERAL = "slugs";
+const std::string Weight::KILO_LITERAL = "kgs";
 
 /////////////////////////////////// Static Methods ///////////////////////////////////
 float Weight::fromKilogramsToPounds(float weightInKilos) noexcept
@@ -129,22 +129,36 @@ bool Weight::operator==(const Weight &rhsWeight) const
     float rhs_weight = (rhsWeight.bIsKnown) ?
                        rhsWeight.getWeight(Weight::POUNDS) : 0;
     return lhs_weight == rhs_weight;
-
 }
 
 bool Weight::operator<(const Weight &rhsWeight) const
 {
-    return false;
+    float lhs_weight = (bIsKnown) ? this->getWeight(Weight::POUNDS) : 0;
+    float rhs_weight = (bIsKnown) ? rhsWeight.getWeight(Weight::POUNDS) : 0;
+    return lhs_weight == rhs_weight;
 }
 
-bool Weight::operator+(const Weight &rhsAddToWeight) const
+Weight &Weight::operator+=(float &rhs_addToWeight)
 {
-    return false;
+    float sum = this->getWeight() + rhs_addToWeight;
+    if(!isWeightValid(sum))
+    {
+        throw invalid_argument(PROGRAM_NAME " += operation results is an invalid weight!");
+    }
+    return *this;
 }
 
-Weight &Weight::operator+=(float rhs_addToWeight)
-{
-
+std::ostream& operator<<( ostream& lhs_stream, const Weight::UnitOfWeight rhs_UnitOfWeight ) {
+    switch( rhs_UnitOfWeight ) {
+        case Weight::POUNDS:
+            return lhs_stream << Weight::POUND_LITERAL;
+        case Weight::KILOS:
+            return lhs_stream << Weight::KILO_LITERAL;
+        case Weight::SLUGS:
+            return lhs_stream << Weight::SLUG_LITERAL;
+        default:
+            throw out_of_range( "The unit can’t be mapped to a string" );
+    }
 }
 
 /////////////////////////////////// Public Class Methods ///////////////////////////////////
@@ -160,12 +174,12 @@ bool Weight::hasMaxWeight() const noexcept
 
 float Weight::getWeight() const noexcept
 {
-    return _weight;
+    return bIsKnown ? _weight : UNKNOWN_WEIGHT;
 }
 
 float Weight::getWeight(Weight::UnitOfWeight weightUnits) const noexcept
 {
-    return convertWeight(_weight, _unitOfWeight, weightUnits);
+    return (bIsKnown) ? convertWeight(_weight, _unitOfWeight, weightUnits) : 0;
 }
 
 float Weight::getMaxWeight() const noexcept
@@ -211,8 +225,11 @@ void Weight::dump() const noexcept
 
 void Weight::setMaxWeight(float newMaxWeight)
 {
+    // Can only set _maxWeight if it isn't already set    ↓
     if(isWeightValid(newMaxWeight) && !isWeightValid(_maxWeight))
     {
         _maxWeight = newMaxWeight;
     }
 }
+
+

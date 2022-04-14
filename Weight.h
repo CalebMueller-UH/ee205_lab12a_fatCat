@@ -13,10 +13,13 @@
 
 #include <ostream>
 #include <string>
+#include <exception>
 
 #include <assert.h>
 
 using namespace std;
+
+#define PROGRAM_NAME "Fat Cat"
 
 class Weight {
 public:  /////////////////////////////////// Enumerations ///////////////////////////////////
@@ -29,7 +32,7 @@ public:  /////////////////////////////////// Constants /////////////////////////
     static const UnitOfWeight DEFAULT_UNIT_OF_WEIGHT;
     static const std::string POUND_LITERAL;
     static const std::string SLUG_LITERAL;
-    static const std::string KILOGRAM_LITERAL;
+    static const std::string KILO_LITERAL;
 
 public:  /////////////////////////////////// Static Methods ///////////////////////////////////
     static float fromKilogramsToPounds(float weightInKilos) noexcept;
@@ -57,8 +60,8 @@ public:  /////////////////////////////////// Class Constructors ////////////////
 public:  /////////////////////////////////// Operators ///////////////////////////////////
     bool operator==(const Weight &rhsWeight) const;
     bool operator<(const Weight &rhsWeight) const;
-    bool operator+(const Weight &rhsAddToWeight) const;
-    Weight& operator+=(float rhs_addToWeight);
+    bool operator+=(const Weight &rhsAddToWeight) const;
+    Weight& operator+=(float &rhs_addToWeight);
 
 private:  /////////////////////////////////// Private Member Variables ///////////////////////////////////
     UnitOfWeight _unitOfWeight; ///< Intentionally non-initialized so that it may be properly assigned during instantiation
@@ -81,10 +84,7 @@ public:  /////////////////////////////////// Public Class Methods //////////////
     void dump() const noexcept;
     void setMaxWeight(float newMaxWeight);
 
-
 private:  /////////////////////////////////// Private Class Methods ///////////////////////////////////
-
-
 
 };
 
