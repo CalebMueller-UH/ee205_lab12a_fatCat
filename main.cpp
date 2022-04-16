@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+#include <string>
 #include <assert.h> // For assert tests
 
 #include "Weight.h"
@@ -98,31 +100,109 @@ int main() {
 
     /////////////// Weight Operator Testing //////////////////
     {
-        /*
-         *  bool operator==(const Weight &rhsWeight) const;
-            bool operator<(const Weight &rhsWeight) const;
-            bool operator+=(const Weight &rhsAddToWeight) const;
-            Weight& operator+=(float &rhs_addToWeight);
-         */
-
+        // operator== testing
         auto *a = new Weight(1.0, Weight::POUNDS, 10.0);
         auto *b = new Weight(1.5, Weight::POUNDS, 10.0);
         assert( !(a == b) );  // Should fail because a != b
 
         a->setWeight(b->getWeight()); //< Setting a's weight equal to b's weight
+        assert( *a == *b );
 
-        cout << "a_weight: " << a->getWeight(Weight::POUNDS) << endl; //< Manually confirming these are equal
-        cout << "b_weight: " << b->getWeight(Weight::POUNDS) << endl; //< Manually confirming these are equal
+        // operator< testing
+        a->setWeight(a->getWeight() - 1.0);
+        assert( *a < *b );
 
-        cout << "Problem:" << endl;
-        // Problem lives here ↓↓↓↓↓↓↓↓↓↓↓
-        cout << "This should evaluate to a==b: 1... 🥲 a==b: " << (a==b) << endl; //< Manually showing it's not working
-        cout << "How about manually calling the operator== function?... a==b: "
-             << a->operator==(*b) << endl; //< Is atleast firing, but this is not the intended functionality...
+        // operator+= testing
+        float addAmnt = 1.0;
+        assert( (*a+=addAmnt).getWeight() == 1.5);
 
-        assert(a==b); // Should now pass, but it always evaluates to false
+        // operator<< testing
+
+        // POUNDS
+        std::stringstream ss;
+        ss << Weight::UnitOfWeight::POUNDS;
+        assert(ss.str() == "lbs");
+        ss.str("");
+        ss.clear();
+
+        // KILOS
+        ss << Weight::UnitOfWeight::KILOS;
+        assert(ss.str() == "kgs");
+        ss.str("");
+        ss.clear();
+
+        // SLUGS
+        ss << Weight::UnitOfWeight::SLUGS;
+        assert(ss.str() == "slugs");
+        ss.str("");
+        ss.clear();
+
+        delete a;
+        delete b;
+    }
+
+    /////////////// Public Class Methods Testing //////////////////
+    /*
+    void dump() const noexcept;
+     */
+
+    {
+        // weightIsKnown() and setWeight() Testing
+        auto *a = new Weight();
+        assert( !a->weightIsKnown() );
+        a->setWeight(5.0);
+        assert( a->weightIsKnown() );
+        assert( a->getWeight() == 5.0);
+
+        // setWeight(float, UnitOfWeight) Testing
+        float tAgainst = Weight::convertWeight(4.0, Weight::POUNDS, Weight::KILOS);
+        a->setWeight(4.0, Weight::KILOS);
+        assert(a->getWeight() == tAgainst);
+
+        // getWeight(UnitOfWeight) Testing
+        float testGetWeightSlugs = Weight::convertWeight(4.0, Weight::POUNDS, Weight::SLUGS);
+        a->setWeight(4.0, Weight::POUNDS);
+        assert(a->getWeight(Weight::SLUGS) == testGetWeightSlugs);
+
+        // hasMaxWeight() and setMaxWeight() Testing
+        assert( !a->hasMaxWeight() );
+        a->setMaxWeight(10.0);
+        assert( a->hasMaxWeight() );
+        assert( a->getMaxWeight() == 10.0);
+
+        // getUnitOfWeight() testing
+        assert( a->getUnitOfWeight() == Weight::POUNDS);
+
+        // weightIsValid() testing
+        assert( a->weightIsValid(1.0) );
+        assert( !a->weightIsValid(500) );
+        assert( !a->weightIsValid(Weight::UNKNOWN_WEIGHT) );
+
+        // maxWeightIsValid() testing
+        assert( a->maxWeightIsValid(1.0) );
+        assert( !a->maxWeightIsValid(500) );
+        assert( !a->maxWeightIsValid(Weight::UNKNOWN_WEIGHT) );
+
+        // validate() testing
+        assert( a->validate() );
+        auto *b = new Weight();
+        assert( !b->validate() );
+        b->setWeight(5.0);
+        assert( !b->validate() );
+        b->setMaxWeight(5.5);
+        assert( b->validate() );
+
+        // dump() Testing
+        std::stringstream ss;
+        ss << b->dump();
+        b->dump();
+
+        delete a;
+        delete b;
     }
 
 
+
+    cout << "End Weight Class Testing" << endl;
     return 0;
 }

@@ -107,7 +107,7 @@ Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newM
     if(maxWeightIsValid(newMaxWeight))
     {
         _maxWeight = newMaxWeight;
-        bHasMax = true;
+        _bHasMax = true;
     } else
     {
         _maxWeight = DEFAULT_MAX_WEIGHT;
@@ -116,7 +116,7 @@ Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newM
     if(weightIsValid(newWeight))
     {
         _weight = newWeight;
-        bIsKnown = true;
+        _bIsKnown = true;
     } else
     {
         _weight = UNKNOWN_WEIGHT;
@@ -124,28 +124,35 @@ Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newM
 }
 
 /////////////////////////////////// Operators ///////////////////////////////////
-bool Weight::operator==(const Weight &rhs) const
-{
-    std::cout << "Bling ";  // This not firing shows that this function isn't even being called! 🥲
-    return this->getWeight(POUNDS) == rhs.getWeight(POUNDS);
+bool Weight::operator==( const Weight& rhs ) const {
+    /// Remember to convert the two weight's units into a common unit!
+    /// Treat unknown weights as 0 (so we can sort them without dealing
+    /// with exceptions)
+    float lhs_weight = (_bIsKnown) ? getWeight(Weight::POUNDS) : 0;
+    float rhs_weight = (rhs._bIsKnown) ? rhs.getWeight(Weight::POUNDS) : 0;
+    return lhs_weight == rhs_weight;
 }
 
 bool Weight::operator<(const Weight &rhs) const
 {
-    return this->getWeight(POUNDS) < rhs.getWeight(POUNDS);
+    float lhs_weight = (_bIsKnown) ? getWeight(Weight::POUNDS) : 0;
+    float rhs_weight = (rhs._bIsKnown) ? rhs.getWeight(Weight::POUNDS) : 0;
+    return lhs_weight < rhs_weight;
 }
 
-Weight &Weight::operator+=(float &rhs)
+Weight &Weight::operator+=(float &rhs_weight)
 {
-    float sum = this->getWeight() + rhs;
+    float lhs_weight = (_bIsKnown) ? getWeight(Weight::POUNDS) : 0;
+    float sum = lhs_weight + rhs_weight;
     if(!weightIsValid(sum))
     {
         throw invalid_argument(PROGRAM_NAME " += operation results is an invalid weight!");
     }
+    this->setWeight(sum);
     return *this;
 }
 
-std::ostream& operator<<( ostream& lhs_stream, const Weight::UnitOfWeight rhsUnit ) {
+std::ostream& operator<<( std::ostream &lhs_stream, const Weight::UnitOfWeight rhsUnit ) {
     switch( rhsUnit ) {
         case Weight::POUNDS:
             return lhs_stream << Weight::POUND_LITERAL;
@@ -171,12 +178,16 @@ bool Weight::hasMaxWeight() const noexcept
 
 float Weight::getWeight() const noexcept
 {
-    return bIsKnown ? _weight : UNKNOWN_WEIGHT;
+    return _bIsKnown ? this->_weight : UNKNOWN_WEIGHT;
 }
 
 float Weight::getWeight(Weight::UnitOfWeight weightUnits) const noexcept
 {
-    return (bIsKnown) ? convertWeight(_weight, _unitOfWeight, weightUnits) : 0;
+    if(this->_bIsKnown)
+    {
+        return convertWeight(this->_weight, this->_unitOfWeight, weightUnits);
+    }
+    return 0; // (!_bisKnown)
 }
 
 float Weight::getMaxWeight() const noexcept
@@ -193,7 +204,8 @@ void Weight::setWeight(float newWeight)
 {
     if(weightIsValid(newWeight))
     {
-        _weight = newWeight;
+        this->_bIsKnown = true;
+        this->_weight = newWeight;
     }
 }
 
@@ -201,14 +213,14 @@ void Weight::setWeight(float newWeight, Weight::UnitOfWeight weightUnits)
 {
     if(weightIsValid(newWeight))
     {
-        _weight = newWeight;
-        _unitOfWeight = weightUnits;
+        float convertedWeight = convertWeight(newWeight, this->getUnitOfWeight(), weightUnits);
+        this->_weight = convertedWeight;
     }
 }
 
 bool Weight::weightIsValid(float checkWeight) const noexcept
 {
-    return (checkWeight > 0 && checkWeight != UNKNOWN_WEIGHT && checkWeight < _maxWeight) ? true : false;
+    return (checkWeight > 0 && checkWeight != UNKNOWN_WEIGHT && checkWeight <= this->_maxWeight) ? true : false;
 }
 
 bool Weight::maxWeightIsValid(float checkMaxWeight) const noexcept
@@ -223,6 +235,9 @@ bool Weight::validate() const noexcept
 
 void Weight::dump() const noexcept
 {
+    std::cout << "Weight: " << this->_weight << " " << this->_unitOfWeight << ", ";
+    std::cout << "Max Weight: " << this->_maxWeight << " " << this->_unitOfWeight << std::endl;
+
 }
 
 void Weight::setMaxWeight(float newMaxWeight)

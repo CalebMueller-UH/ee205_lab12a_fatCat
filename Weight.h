@@ -62,15 +62,14 @@ public:  /////////////////////////////////// Class Constructors ////////////////
 public:  /////////////////////////////////// Operators ///////////////////////////////////
     bool operator==(const Weight &rhs) const;
     bool operator<(const Weight &rhs) const;
-    //bool operator+=(const Weight &rhsAddToWeight) const;
-    Weight& operator+=(float &rhs);
+    Weight& operator+=(float &rhs_weight);
 
 private:  /////////////////////////////////// Private Member Variables ///////////////////////////////////
     UnitOfWeight _unitOfWeight; ///< Intentionally non-initialized so that it may be properly assigned during instantiation
     float _weight{UNKNOWN_WEIGHT}; ///< weight of animal in units set by _unitOfWeight
     float _maxWeight{DEFAULT_MAX_WEIGHT}; ///< max weight of an animal in units set by _unitOfWeight
-    bool bIsKnown{false}; ///< bool flag for if _weight is set to a valid entry greater than 0 and not unknown
-    bool bHasMax{false}; ///< bool flag for if _maxWeight is set to a valid entry greater than 0 and not unknown
+    bool _bIsKnown{false}; ///< bool flag for if _weight is set to a valid entry greater than 0 and not unknown
+    bool _bHasMax{false}; ///< bool flag for if _maxWeight is set to a valid entry greater than 0 and not unknown
 
 public:  /////////////////////////////////// Public Class Methods ///////////////////////////////////
     bool weightIsKnown() const noexcept;
@@ -90,6 +89,9 @@ public:  /////////////////////////////////// Public Class Methods //////////////
 private:  /////////////////////////////////// Private Class Methods ///////////////////////////////////
 
 };
+
+std::ostream& operator<<( std::ostream &lhs_stream, const Weight::UnitOfWeight rhsUnit );
+
 
 
 #endif //EE205_LAB12A_FATCAT_WEIGHT_H
