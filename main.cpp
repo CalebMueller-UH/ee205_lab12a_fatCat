@@ -9,7 +9,7 @@ using namespace std;
 
 int main() {
     cout << "Beginning Weight Class testing..." << endl;
-    cout << "---------------------------------" << endl;
+    cout << "---------------------------------\n" << endl;
     /////////////// Constructor Testing //////////////////
     // Testing Constructor #1
     {
@@ -142,10 +142,6 @@ int main() {
     }
 
     /////////////// Public Class Methods Testing //////////////////
-    /*
-    void dump() const noexcept;
-     */
-
     {
         // weightIsKnown() and setWeight() Testing
         auto *a = new Weight();
@@ -193,16 +189,14 @@ int main() {
         assert( b->validate() );
 
         // dump() Testing
-        std::stringstream ss;
-        ss << b->dump();
+        cout << "b->dump():" << endl;
         b->dump();
 
         delete a;
         delete b;
     }
 
-
-
-    cout << "End Weight Class Testing" << endl;
+    cout << "\n---------------------------------" << endl;
+    cout << "End of Weight Class Testing" << endl;
     return 0;
 }
