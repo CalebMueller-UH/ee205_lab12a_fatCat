@@ -30,6 +30,7 @@ public:  /////////////////////////////////// Constants /////////////////////////
     static const float KILOS_IN_A_POUND;
     static const float SLUGS_IN_A_POUND;
     static const UnitOfWeight DEFAULT_UNIT_OF_WEIGHT;
+    static const float DEFAULT_MAX_WEIGHT;
     static const std::string POUND_LITERAL;
     static const std::string SLUG_LITERAL;
     static const std::string KILO_LITERAL;
@@ -66,7 +67,7 @@ public:  /////////////////////////////////// Operators /////////////////////////
 private:  /////////////////////////////////// Private Member Variables ///////////////////////////////////
     UnitOfWeight _unitOfWeight; ///< Intentionally non-initialized so that it may be properly assigned during instantiation
     float _weight{UNKNOWN_WEIGHT}; ///< weight of animal in units set by _unitOfWeight
-    float _maxWeight{UNKNOWN_WEIGHT}; ///< max weight of an animal in units set by _unitOfWeight
+    float _maxWeight{DEFAULT_MAX_WEIGHT}; ///< max weight of an animal in units set by _unitOfWeight
     bool bIsKnown{false}; ///< bool flag for if _weight is set to a valid entry greater than 0 and not unknown
     bool bHasMax{false}; ///< bool flag for if _maxWeight is set to a valid entry greater than 0 and not unknown
 
@@ -79,7 +80,8 @@ public:  /////////////////////////////////// Public Class Methods //////////////
     UnitOfWeight getUnitOfWeight() const noexcept;
     void setWeight(float newWeight);
     void setWeight(float newWeight, UnitOfWeight weightUnits);
-    bool isWeightValid(float checkWeight) const noexcept;
+    bool weightIsValid(float checkWeight) const noexcept;
+    bool maxWeightIsValid(float checkWeight) const noexcept;
     bool validate() const noexcept;
     void dump() const noexcept;
     void setMaxWeight(float newMaxWeight);

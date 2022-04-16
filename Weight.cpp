@@ -15,6 +15,7 @@ const float Weight::UNKNOWN_WEIGHT = -1.0;
 const float Weight::KILOS_IN_A_POUND = 0.453592;
 const float Weight::SLUGS_IN_A_POUND = 0.031081;
 const Weight::UnitOfWeight Weight::DEFAULT_UNIT_OF_WEIGHT = POUNDS;
+const float Weight::DEFAULT_MAX_WEIGHT = 50;
 const std::string Weight::POUND_LITERAL = "lbs";
 const std::string Weight::SLUG_LITERAL = "slugs";
 const std::string Weight::KILO_LITERAL = "kgs";
@@ -103,7 +104,16 @@ Weight::Weight(UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept : Weig
 // ↓ #7
 Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept : _unitOfWeight{newUnitOfWeight}
 {
-    if(isWeightValid(newWeight))
+    if(maxWeightIsValid(newMaxWeight))
+    {
+        _maxWeight = newMaxWeight;
+        bHasMax = true;
+    } else
+    {
+        _maxWeight = DEFAULT_MAX_WEIGHT;
+    }
+
+    if(weightIsValid(newWeight))
     {
         _weight = newWeight;
         bIsKnown = true;
@@ -111,23 +121,13 @@ Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newM
     {
         _weight = UNKNOWN_WEIGHT;
     }
-
-    if(isWeightValid(newMaxWeight))
-    {
-        _maxWeight = newMaxWeight;
-        bHasMax = true;
-    } else
-    {
-        _maxWeight = UNKNOWN_WEIGHT;
-    }
 }
 
 /////////////////////////////////// Operators ///////////////////////////////////
 bool Weight::operator==(const Weight &rhsWeight) const
 {
     float lhs_weight = (bIsKnown) ? getWeight(Weight::POUNDS) : 0;
-    float rhs_weight = (rhsWeight.bIsKnown) ?
-                       rhsWeight.getWeight(Weight::POUNDS) : 0;
+    float rhs_weight = (rhsWeight.bIsKnown) ? rhsWeight.getWeight(Weight::POUNDS) : 0;
     return lhs_weight == rhs_weight;
 }
 
@@ -141,7 +141,7 @@ bool Weight::operator<(const Weight &rhsWeight) const
 Weight &Weight::operator+=(float &rhs_addToWeight)
 {
     float sum = this->getWeight() + rhs_addToWeight;
-    if(!isWeightValid(sum))
+    if(!weightIsValid(sum))
     {
         throw invalid_argument(PROGRAM_NAME " += operation results is an invalid weight!");
     }
@@ -164,12 +164,12 @@ std::ostream& operator<<( ostream& lhs_stream, const Weight::UnitOfWeight rhs_Un
 /////////////////////////////////// Public Class Methods ///////////////////////////////////
 bool Weight::isWeightKnown() const noexcept
 {
-    return (isWeightValid(_weight)) ? true : false;
+    return (weightIsValid(_weight)) ? true : false;
 }
 
 bool Weight::hasMaxWeight() const noexcept
 {
-    return (isWeightValid(_maxWeight)) ? true : false;
+    return (maxWeightIsValid(_maxWeight)) ? true : false;
 }
 
 float Weight::getWeight() const noexcept
@@ -194,7 +194,7 @@ Weight::UnitOfWeight Weight::getUnitOfWeight() const noexcept
 
 void Weight::setWeight(float newWeight)
 {
-    if(isWeightValid(newWeight))
+    if(weightIsValid(newWeight))
     {
         _weight = newWeight;
     }
@@ -202,21 +202,26 @@ void Weight::setWeight(float newWeight)
 
 void Weight::setWeight(float newWeight, Weight::UnitOfWeight weightUnits)
 {
-    if(isWeightValid(newWeight))
+    if(weightIsValid(newWeight))
     {
         _weight = newWeight;
         _unitOfWeight = weightUnits;
     }
 }
 
-bool Weight::isWeightValid(float checkWeight) const noexcept
+bool Weight::weightIsValid(float checkWeight) const noexcept
 {
-    return (checkWeight > 0 && checkWeight != UNKNOWN_WEIGHT) ? true : false;
+    return (checkWeight > 0 && checkWeight != UNKNOWN_WEIGHT && checkWeight < _maxWeight) ? true : false;
+}
+
+bool Weight::maxWeightIsValid(float checkMaxWeight) const noexcept
+{
+    return (checkMaxWeight > 0 && checkMaxWeight < DEFAULT_MAX_WEIGHT) ? true : false;
 }
 
 bool Weight::validate() const noexcept
 {
-    return (isWeightValid(_weight) && isWeightValid(_maxWeight)) ? true : false;
+    return (weightIsValid(_weight) && maxWeightIsValid(_maxWeight)) ? true : false;
 }
 
 void Weight::dump() const noexcept
@@ -226,7 +231,7 @@ void Weight::dump() const noexcept
 void Weight::setMaxWeight(float newMaxWeight)
 {
     // Can only set _maxWeight if it isn't already set    ↓
-    if(isWeightValid(newMaxWeight) && !isWeightValid(_maxWeight))
+    if(maxWeightIsValid(newMaxWeight) && !maxWeightIsValid(_maxWeight))
     {
         _maxWeight = newMaxWeight;
     }
