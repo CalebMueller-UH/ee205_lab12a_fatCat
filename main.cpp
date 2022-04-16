@@ -117,6 +117,9 @@ int main() {
         cout << "Problem:" << endl;
         // Problem lives here ↓↓↓↓↓↓↓↓↓↓↓
         cout << "This should evaluate to a==b: 1... 🥲 a==b: " << (a==b) << endl; //< Manually showing it's not working
+        cout << "How about manually calling the operator== function?... a==b: "
+             << a->operator==(*b) << endl; //< Is atleast firing, but this is not the intended functionality...
+
         assert(a==b); // Should now pass, but it always evaluates to false
     }
 

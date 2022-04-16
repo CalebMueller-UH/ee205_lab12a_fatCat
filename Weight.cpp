@@ -126,7 +126,7 @@ Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newM
 /////////////////////////////////// Operators ///////////////////////////////////
 bool Weight::operator==(const Weight &rhs) const
 {
-    std::cout << "Bling" << endl;  // This not firing shows that this function isn't even being called! 🥲
+    std::cout << "Bling ";  // This not firing shows that this function isn't even being called! 🥲
     return this->getWeight(POUNDS) == rhs.getWeight(POUNDS);
 }
 
