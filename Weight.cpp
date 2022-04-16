@@ -11,7 +11,7 @@
 #include "Weight.h"
 
 /////////////////////////////////// Constants ///////////////////////////////////
-const float Weight::UNKNOWN_WEIGHT = -1.0;
+const float Weight::UNKNOWN_WEIGHT = 0;
 const float Weight::KILOS_IN_A_POUND = 0.453592;
 const float Weight::SLUGS_IN_A_POUND = 0.031081;
 const Weight::UnitOfWeight Weight::DEFAULT_UNIT_OF_WEIGHT = POUNDS;
@@ -178,7 +178,7 @@ bool Weight::hasMaxWeight() const noexcept
 
 float Weight::getWeight() const noexcept
 {
-    return _bIsKnown ? this->_weight : UNKNOWN_WEIGHT;
+    return _bIsKnown ? this->_weight : 0;
 }
 
 float Weight::getWeight(Weight::UnitOfWeight weightUnits) const noexcept
