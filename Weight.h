@@ -12,6 +12,7 @@
 #define EE205_LAB12A_FATCAT_WEIGHT_H
 
 #include <ostream>
+#include <iostream>
 #include <string>
 #include <exception>
 
@@ -59,10 +60,10 @@ public:  /////////////////////////////////// Class Constructors ////////////////
     Weight(float newWeight, UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept;
 
 public:  /////////////////////////////////// Operators ///////////////////////////////////
-    bool operator==(const Weight &rhsWeight) const;
-    bool operator<(const Weight &rhsWeight) const;
-    bool operator+=(const Weight &rhsAddToWeight) const;
-    Weight& operator+=(float &rhs_addToWeight);
+    bool operator==(const Weight &rhs) const;
+    bool operator<(const Weight &rhs) const;
+    //bool operator+=(const Weight &rhsAddToWeight) const;
+    Weight& operator+=(float &rhs);
 
 private:  /////////////////////////////////// Private Member Variables ///////////////////////////////////
     UnitOfWeight _unitOfWeight; ///< Intentionally non-initialized so that it may be properly assigned during instantiation
@@ -72,7 +73,7 @@ private:  /////////////////////////////////// Private Member Variables /////////
     bool bHasMax{false}; ///< bool flag for if _maxWeight is set to a valid entry greater than 0 and not unknown
 
 public:  /////////////////////////////////// Public Class Methods ///////////////////////////////////
-    bool isWeightKnown() const noexcept;
+    bool weightIsKnown() const noexcept;
     bool hasMaxWeight() const noexcept;
     float getWeight() const noexcept;
     float getWeight(UnitOfWeight weightUnits) const noexcept;

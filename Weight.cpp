@@ -124,23 +124,20 @@ Weight::Weight(float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newM
 }
 
 /////////////////////////////////// Operators ///////////////////////////////////
-bool Weight::operator==(const Weight &rhsWeight) const
+bool Weight::operator==(const Weight &rhs) const
 {
-    float lhs_weight = (bIsKnown) ? getWeight(Weight::POUNDS) : 0;
-    float rhs_weight = (rhsWeight.bIsKnown) ? rhsWeight.getWeight(Weight::POUNDS) : 0;
-    return lhs_weight == rhs_weight;
+    std::cout << "Bling" << endl;  // This not firing shows that this function isn't even being called! 🥲
+    return this->getWeight(POUNDS) == rhs.getWeight(POUNDS);
 }
 
-bool Weight::operator<(const Weight &rhsWeight) const
+bool Weight::operator<(const Weight &rhs) const
 {
-    float lhs_weight = (bIsKnown) ? this->getWeight(Weight::POUNDS) : 0;
-    float rhs_weight = (bIsKnown) ? rhsWeight.getWeight(Weight::POUNDS) : 0;
-    return lhs_weight == rhs_weight;
+    return this->getWeight(POUNDS) < rhs.getWeight(POUNDS);
 }
 
-Weight &Weight::operator+=(float &rhs_addToWeight)
+Weight &Weight::operator+=(float &rhs)
 {
-    float sum = this->getWeight() + rhs_addToWeight;
+    float sum = this->getWeight() + rhs;
     if(!weightIsValid(sum))
     {
         throw invalid_argument(PROGRAM_NAME " += operation results is an invalid weight!");
@@ -148,8 +145,8 @@ Weight &Weight::operator+=(float &rhs_addToWeight)
     return *this;
 }
 
-std::ostream& operator<<( ostream& lhs_stream, const Weight::UnitOfWeight rhs_UnitOfWeight ) {
-    switch( rhs_UnitOfWeight ) {
+std::ostream& operator<<( ostream& lhs_stream, const Weight::UnitOfWeight rhsUnit ) {
+    switch( rhsUnit ) {
         case Weight::POUNDS:
             return lhs_stream << Weight::POUND_LITERAL;
         case Weight::KILOS:
@@ -162,7 +159,7 @@ std::ostream& operator<<( ostream& lhs_stream, const Weight::UnitOfWeight rhs_Un
 }
 
 /////////////////////////////////// Public Class Methods ///////////////////////////////////
-bool Weight::isWeightKnown() const noexcept
+bool Weight::weightIsKnown() const noexcept
 {
     return (weightIsValid(_weight)) ? true : false;
 }

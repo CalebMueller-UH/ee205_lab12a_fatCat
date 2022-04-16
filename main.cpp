@@ -75,7 +75,6 @@ int main() {
     }
     // Testing Constructor #7c
     {
-        //
         auto *tw = new Weight(11, Weight::POUNDS, 10);
         assert(tw->getWeight() == Weight::UNKNOWN_WEIGHT);
         assert(tw->getUnitOfWeight() == Weight::POUNDS);
@@ -108,8 +107,17 @@ int main() {
 
         auto *a = new Weight(1.0, Weight::POUNDS, 10.0);
         auto *b = new Weight(1.5, Weight::POUNDS, 10.0);
+        assert( !(a == b) );  // Should fail because a != b
 
-        assert( (a == b) );
+        a->setWeight(b->getWeight()); //< Setting a's weight equal to b's weight
+
+        cout << "a_weight: " << a->getWeight(Weight::POUNDS) << endl; //< Manually confirming these are equal
+        cout << "b_weight: " << b->getWeight(Weight::POUNDS) << endl; //< Manually confirming these are equal
+
+        cout << "Problem:" << endl;
+        // Problem lives here ↓↓↓↓↓↓↓↓↓↓↓
+        cout << "This should evaluate to a==b: 1... 🥲 a==b: " << (a==b) << endl; //< Manually showing it's not working
+        assert(a==b); // Should now pass, but it always evaluates to false
     }
 
 
