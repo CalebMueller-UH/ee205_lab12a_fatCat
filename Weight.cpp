@@ -90,25 +90,37 @@ float Weight::convertWeight( float fromWeight, Weight::UnitOfWeight fromUnit, We
 
 /////////////////////////////////// Class Constructors //////////////////////////////////////
 // ↓ #1
-Weight::Weight() noexcept : Weight( UNKNOWN_WEIGHT, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT ){}
+Weight::Weight() noexcept : Weight( UNKNOWN_WEIGHT, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT )
+{
+}
 
 // ↓ #2
-Weight::Weight( float newWeight ) : Weight( newWeight, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT ){}
+Weight::Weight( float newWeight ) : Weight( newWeight, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT )
+{
+}
 
 // ↓ #3
-Weight::Weight( Weight::UnitOfWeight newUnitOfWeight )noexcept : Weight( UNKNOWN_WEIGHT, newUnitOfWeight, UNKNOWN_WEIGHT ){}
+Weight::Weight( Weight::UnitOfWeight newUnitOfWeight ) noexcept : Weight( UNKNOWN_WEIGHT, newUnitOfWeight, UNKNOWN_WEIGHT )
+{
+}
 
 // ↓ #4
-Weight::Weight( float newWeight, Weight::UnitOfWeight newUnitOfWeight )noexcept : Weight( newWeight, newUnitOfWeight, UNKNOWN_WEIGHT ){}
+Weight::Weight( float newWeight, Weight::UnitOfWeight newUnitOfWeight ) noexcept : Weight( newWeight, newUnitOfWeight, UNKNOWN_WEIGHT )
+{
+}
 
 // ↓ #5
-Weight::Weight( float newWeight, float newMaxWeight )noexcept : Weight( newWeight, DEFAULT_UNIT_OF_WEIGHT, newMaxWeight ){}
+Weight::Weight( float newWeight, float newMaxWeight ) noexcept : Weight( newWeight, DEFAULT_UNIT_OF_WEIGHT, newMaxWeight )
+{
+}
 
 // ↓ #6
-Weight::Weight( UnitOfWeight newUnitOfWeight, float newMaxWeight )noexcept : Weight( UNKNOWN_WEIGHT, newUnitOfWeight, newMaxWeight ){}
+Weight::Weight( UnitOfWeight newUnitOfWeight, float newMaxWeight ) noexcept : Weight( UNKNOWN_WEIGHT, newUnitOfWeight, newMaxWeight )
+{
+}
 
 // ↓ #7
-Weight::Weight( float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newMaxWeight )noexcept : _unitOfWeight{ newUnitOfWeight }
+Weight::Weight( float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newMaxWeight ) noexcept : _unitOfWeight{ newUnitOfWeight }
 {
 	if( maxWeightIsValid( newMaxWeight ))
 	{
