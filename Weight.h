@@ -76,7 +76,7 @@ public:  /////////////////////////////////// Operators /////////////////////////
 
     bool operator<(const Weight &rhs) const;
 
-    Weight &operator+=(float &rhs_weight);
+    Weight &operator+=(const float &rhs_weight);
 
 private:  /////////////////////////////////// Private Member Variables ///////////////////////////////////
     UnitOfWeight _unitOfWeight{DEFAULT_UNIT_OF_WEIGHT};
@@ -92,25 +92,25 @@ public:  /////////////////////////////////// Public Class Methods //////////////
 
     float getWeight() const noexcept;
 
-    float getWeight(UnitOfWeight weightUnits) const noexcept;
+    float getWeight(const UnitOfWeight weightUnits) const noexcept;
 
     float getMaxWeight() const noexcept;
 
     UnitOfWeight getUnitOfWeight() const noexcept;
 
-    void setWeight(float newWeight);
+    void setWeight(const float newWeight);
 
-    void setWeight(float newWeight, UnitOfWeight weightUnits);
+    void setWeight(const float newWeight, UnitOfWeight weightUnits);
 
-    bool weightIsValid(float checkWeight) const noexcept;
+    bool weightIsValid(const float checkWeight) const noexcept;
 
-    bool maxWeightIsValid(float checkWeight) const noexcept;
+    bool maxWeightIsValid(const float checkWeight) const noexcept;
 
     bool validate() const noexcept;
 
     void dump() const noexcept;
 
-    void setMaxWeight(float newMaxWeight);
+    void setMaxWeight(const float newMaxWeight);
 
 };
 

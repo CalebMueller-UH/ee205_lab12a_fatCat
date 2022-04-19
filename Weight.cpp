@@ -146,7 +146,7 @@ bool Weight::operator<( const Weight &rhs ) const
 	return lhs_weight < rhs_weight;
 }
 
-Weight &Weight::operator+=( float &rhs_weight )
+Weight &Weight::operator+=( const float &rhs_weight )
 {
 	float lhs_weight = ( _bIsKnown ) ? getWeight( Weight::POUNDS ) : 0;
 	float sum = lhs_weight + rhs_weight;
@@ -190,7 +190,7 @@ float Weight::getWeight() const noexcept
 	return _bIsKnown ? _weight : 0;
 }
 
-float Weight::getWeight( Weight::UnitOfWeight weightUnits ) const noexcept
+float Weight::getWeight( const Weight::UnitOfWeight weightUnits ) const noexcept
 {
 	if( _bIsKnown )
 	{
@@ -209,7 +209,7 @@ Weight::UnitOfWeight Weight::getUnitOfWeight() const noexcept
 	return _unitOfWeight;
 }
 
-void Weight::setWeight( float newWeight )
+void Weight::setWeight( const float newWeight )
 {
 	if( weightIsValid( newWeight ))
 	{
@@ -218,7 +218,7 @@ void Weight::setWeight( float newWeight )
 	}
 }
 
-void Weight::setWeight( float newWeight, Weight::UnitOfWeight weightUnits )
+void Weight::setWeight( const float newWeight, Weight::UnitOfWeight weightUnits )
 {
 	if( weightIsValid( newWeight ))
 	{
@@ -226,12 +226,12 @@ void Weight::setWeight( float newWeight, Weight::UnitOfWeight weightUnits )
 	}
 }
 
-bool Weight::weightIsValid( float checkWeight ) const noexcept
+bool Weight::weightIsValid( const float checkWeight ) const noexcept
 {
 	return ( checkWeight > 0 && checkWeight != UNKNOWN_WEIGHT && checkWeight <= _maxWeight );
 }
 
-bool Weight::maxWeightIsValid( float checkMaxWeight ) const noexcept
+bool Weight::maxWeightIsValid( const float checkMaxWeight ) const noexcept
 {
 	return ( checkMaxWeight > 0 && checkMaxWeight < DEFAULT_MAX_WEIGHT );
 }
@@ -247,7 +247,7 @@ void Weight::dump() const noexcept
 	std::cout << "Max Weight: " << _maxWeight << " " << _unitOfWeight << std::endl;
 }
 
-void Weight::setMaxWeight( float newMaxWeight )
+void Weight::setMaxWeight( const float newMaxWeight )
 {
 	// Can only set _maxWeight if it isn't already set    ↓
 	if( maxWeightIsValid( newMaxWeight ) && !maxWeightIsValid( _maxWeight ))
