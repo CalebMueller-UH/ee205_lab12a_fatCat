@@ -177,12 +177,12 @@ std::ostream &operator<<( std::ostream &lhs_stream, const Weight::UnitOfWeight r
 /////////////////////////////////// Public Class Methods //////////////////////////////////////
 bool Weight::weightIsKnown() const noexcept
 {
-	return ( weightIsValid( _weight ));
+	return _bIsKnown;
 }
 
 bool Weight::hasMaxWeight() const noexcept
 {
-	return ( maxWeightIsValid( _maxWeight ));
+	return _bHasMax;
 }
 
 float Weight::getWeight() const noexcept
