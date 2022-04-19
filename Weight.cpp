@@ -90,22 +90,22 @@ float Weight::convertWeight( const float fromWeight, const Weight::UnitOfWeight 
 
 /////////////////////////////////// Class Constructors //////////////////////////////////////
 // ↓ #1 Default Constructor: delegates to #7 with all default values
-Weight::Weight() noexcept : Weight( UNKNOWN_WEIGHT, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT ){}
+Weight::Weight() noexcept : Weight( UNKNOWN_WEIGHT, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT ) {}
 
 // ↓ #2 only newWeight parameter provided: delegates to #7 with default values for _unitOfWeight and _maxWeight
-Weight::Weight( float newWeight ) : Weight( newWeight, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT ){}
+Weight::Weight( float newWeight ) : Weight( newWeight, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT ) {}
 
 // ↓ #3 Only newUnitOfWeight parameter provided: delegates to #7 with default values for _weight and _unitOfWeight
-Weight::Weight( Weight::UnitOfWeight newUnitOfWeight ) noexcept : Weight( UNKNOWN_WEIGHT, newUnitOfWeight, UNKNOWN_WEIGHT ){}
+Weight::Weight( Weight::UnitOfWeight newUnitOfWeight ) noexcept : Weight( UNKNOWN_WEIGHT, newUnitOfWeight, UNKNOWN_WEIGHT ) {}
 
 // ↓ #4 newWeight and newUnitOfWeight parameters provided: delegates to #7 with default value for _maxWeight
-Weight::Weight( float newWeight, Weight::UnitOfWeight newUnitOfWeight ) noexcept : Weight( newWeight, newUnitOfWeight, UNKNOWN_WEIGHT ){}
+Weight::Weight( float newWeight, Weight::UnitOfWeight newUnitOfWeight ) noexcept : Weight( newWeight, newUnitOfWeight, UNKNOWN_WEIGHT ) {}
 
 // ↓ #5  newWeight and newMaxWeight provided: delegates to #7 with default value for _unitOfWeight
-Weight::Weight( float newWeight, float newMaxWeight ) noexcept : Weight( newWeight, DEFAULT_UNIT_OF_WEIGHT, newMaxWeight ){}
+Weight::Weight( float newWeight, float newMaxWeight ) noexcept : Weight( newWeight, DEFAULT_UNIT_OF_WEIGHT, newMaxWeight ) {}
 
 // ↓ #6  newUnitOfWeight and newMaxWeight provided: delegates to #7 with default value for _weight
-Weight::Weight( UnitOfWeight newUnitOfWeight, float newMaxWeight ) noexcept : Weight( UNKNOWN_WEIGHT, newUnitOfWeight, newMaxWeight ){}
+Weight::Weight( UnitOfWeight newUnitOfWeight, float newMaxWeight ) noexcept : Weight( UNKNOWN_WEIGHT, newUnitOfWeight, newMaxWeight ) {}
 
 // ↓ #7  all member variables provided as parameters
 Weight::Weight( float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newMaxWeight ) noexcept : _unitOfWeight{ newUnitOfWeight }
