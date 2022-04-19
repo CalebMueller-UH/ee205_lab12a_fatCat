@@ -250,8 +250,9 @@ void Weight::dump() const noexcept
 void Weight::setMaxWeight( const float newMaxWeight )
 {
 	// Can only set _maxWeight if it isn't already set    ↓
-	if( maxWeightIsValid( newMaxWeight ) && !maxWeightIsValid( _maxWeight ))
+	if( maxWeightIsValid( newMaxWeight ) && !_bHasMax)
 	{
 		_maxWeight = newMaxWeight;
+		_bHasMax = true;
 	}
 }
