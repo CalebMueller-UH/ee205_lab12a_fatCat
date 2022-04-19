@@ -24,8 +24,7 @@ using namespace std;
 
 class Weight {
 public:  /////////////////////////////////// Enumerations ///////////////////////////////////
-    enum UnitOfWeight
-            {
+    enum UnitOfWeight {
         POUNDS, KILOS, SLUGS
     };
 
@@ -41,30 +40,42 @@ public:  /////////////////////////////////// Constants /////////////////////////
 
 public:  /////////////////////////////////// Static Methods ///////////////////////////////////
     static float fromKilogramsToPounds(const float weightInKilos) noexcept;
+
     static float fromPoundsToKilograms(const float weightInPounds) noexcept;
+
     static float fromSlugsToPounds(const float weightInSlugs) noexcept;
+
     static float fromPoundsToSlugs(const float weightInPounds) noexcept;
+
     static float convertWeight(const float fromWeight, const UnitOfWeight fromUnit, const UnitOfWeight toUnit) noexcept;
 
 public:  /////////////////////////////////// Class Constructors ///////////////////////////////////
     // ↓ #1 Default Constructor: delegates to #7 with all default values
     Weight() noexcept;
+
     // ↓ #2 only newWeight parameter provided: delegates to #7 with default values for _unitOfWeight and _maxWeight
     Weight(float newWeight);
+
     // ↓ #3 Only newUnitOfWeight parameter provided: delegates to #7 with default values for _weight and _unitOfWeight
     Weight(UnitOfWeight newUnitOfWeight) noexcept;
+
     // ↓ #4 newWeight and newUnitOfWeight parameters provided: delegates to #7 with default value for _maxWeight
     Weight(float newWeight, UnitOfWeight newUnitOfWeight) noexcept;
+
     // ↓ #5  newWeight and newMaxWeight provided: delegates to #7 with default value for _unitOfWeight
     Weight(float newWeight, float newMaxWeight) noexcept;
+
     // ↓ #6  newUnitOfWeight and newMaxWeight provided: delegates to #7 with default value for _weight
     Weight(UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept;
+
     // ↓ #7  all member variables provided as parameters
     Weight(float newWeight, UnitOfWeight newUnitOfWeight, float newMaxWeight) noexcept;
 
 public:  /////////////////////////////////// Operators ///////////////////////////////////
     bool operator==(const Weight &rhs) const;
+
     bool operator<(const Weight &rhs) const;
+
     Weight &operator+=(float &rhs_weight);
 
 private:  /////////////////////////////////// Private Member Variables ///////////////////////////////////
@@ -76,17 +87,29 @@ private:  /////////////////////////////////// Private Member Variables /////////
 
 public:  /////////////////////////////////// Public Class Methods ///////////////////////////////////
     bool weightIsKnown() const noexcept;
+
     bool hasMaxWeight() const noexcept;
+
     float getWeight() const noexcept;
+
     float getWeight(UnitOfWeight weightUnits) const noexcept;
+
     float getMaxWeight() const noexcept;
+
     UnitOfWeight getUnitOfWeight() const noexcept;
+
     void setWeight(float newWeight);
+
     void setWeight(float newWeight, UnitOfWeight weightUnits);
+
     bool weightIsValid(float checkWeight) const noexcept;
+
     bool maxWeightIsValid(float checkWeight) const noexcept;
+
     bool validate() const noexcept;
+
     void dump() const noexcept;
+
     void setMaxWeight(float newMaxWeight);
 
 };

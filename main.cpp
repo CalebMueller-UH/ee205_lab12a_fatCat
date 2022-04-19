@@ -104,7 +104,7 @@ int main()
 		// operator== testing
 		auto *a = new Weight( 1.0, Weight::POUNDS, 10.0 );
 		auto *b = new Weight( 1.5, Weight::POUNDS, 10.0 );
-		assert( !(*a == *b) ); // Should fail because a != b
+		assert( !( *a == *b )); // Should fail because a != b
 
 		a->setWeight( b->getWeight()); //< Setting a's weight equal to b's weight
 		assert( *a == *b );
@@ -118,7 +118,6 @@ int main()
 		assert(( *a += addAmnt ).getWeight() == 1.5 );
 
 		// operator<< testing
-
 		// POUNDS
 		std::stringstream ss;
 		ss << Weight::UnitOfWeight::POUNDS;
