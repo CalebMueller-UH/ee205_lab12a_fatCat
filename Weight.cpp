@@ -21,27 +21,27 @@ const std::string Weight::SLUG_LITERAL = "slugs";
 const std::string Weight::KILO_LITERAL = "kgs";
 
 /////////////////////////////////// Static Methods //////////////////////////////////////
-float Weight::fromKilogramsToPounds( float weightInKilos ) noexcept
+float Weight::fromKilogramsToPounds( const float weightInKilos ) noexcept
 {
 	return weightInKilos / KILOS_IN_A_POUND;
 }
 
-float Weight::fromPoundsToKilograms( float weightInPounds ) noexcept
+float Weight::fromPoundsToKilograms( const float weightInPounds ) noexcept
 {
 	return weightInPounds * KILOS_IN_A_POUND;
 }
 
-float Weight::fromSlugsToPounds( float weightInSlugs ) noexcept
+float Weight::fromSlugsToPounds( const float weightInSlugs ) noexcept
 {
 	return weightInSlugs / SLUGS_IN_A_POUND;
 }
 
-float Weight::fromPoundsToSlugs( float weightInPounds ) noexcept
+float Weight::fromPoundsToSlugs( const float weightInPounds ) noexcept
 {
 	return weightInPounds * SLUGS_IN_A_POUND;
 }
 
-float Weight::convertWeight( float fromWeight, Weight::UnitOfWeight fromUnit, Weight::UnitOfWeight toUnit ) noexcept
+float Weight::convertWeight( const float fromWeight, const Weight::UnitOfWeight fromUnit, const Weight::UnitOfWeight toUnit ) noexcept
 {
 	switch( fromUnit )
 	{
@@ -89,37 +89,25 @@ float Weight::convertWeight( float fromWeight, Weight::UnitOfWeight fromUnit, We
 }
 
 /////////////////////////////////// Class Constructors //////////////////////////////////////
-// ↓ #1
-Weight::Weight() noexcept : Weight( UNKNOWN_WEIGHT, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT )
-{
-}
+// ↓ #1 Default Constructor: delegates to #7 with all default values
+Weight::Weight() noexcept : Weight( UNKNOWN_WEIGHT, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT ){}
 
-// ↓ #2
-Weight::Weight( float newWeight ) : Weight( newWeight, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT )
-{
-}
+// ↓ #2 only newWeight parameter provided: delegates to #7 with default values for _unitOfWeight and _maxWeight
+Weight::Weight( float newWeight ) : Weight( newWeight, DEFAULT_UNIT_OF_WEIGHT, UNKNOWN_WEIGHT ){}
 
-// ↓ #3
-Weight::Weight( Weight::UnitOfWeight newUnitOfWeight ) noexcept : Weight( UNKNOWN_WEIGHT, newUnitOfWeight, UNKNOWN_WEIGHT )
-{
-}
+// ↓ #3 Only newUnitOfWeight parameter provided: delegates to #7 with default values for _weight and _unitOfWeight
+Weight::Weight( Weight::UnitOfWeight newUnitOfWeight ) noexcept : Weight( UNKNOWN_WEIGHT, newUnitOfWeight, UNKNOWN_WEIGHT ){}
 
-// ↓ #4
-Weight::Weight( float newWeight, Weight::UnitOfWeight newUnitOfWeight ) noexcept : Weight( newWeight, newUnitOfWeight, UNKNOWN_WEIGHT )
-{
-}
+// ↓ #4 newWeight and newUnitOfWeight parameters provided: delegates to #7 with default value for _maxWeight
+Weight::Weight( float newWeight, Weight::UnitOfWeight newUnitOfWeight ) noexcept : Weight( newWeight, newUnitOfWeight, UNKNOWN_WEIGHT ){}
 
-// ↓ #5
-Weight::Weight( float newWeight, float newMaxWeight ) noexcept : Weight( newWeight, DEFAULT_UNIT_OF_WEIGHT, newMaxWeight )
-{
-}
+// ↓ #5  newWeight and newMaxWeight provided: delegates to #7 with default value for _unitOfWeight
+Weight::Weight( float newWeight, float newMaxWeight ) noexcept : Weight( newWeight, DEFAULT_UNIT_OF_WEIGHT, newMaxWeight ){}
 
-// ↓ #6
-Weight::Weight( UnitOfWeight newUnitOfWeight, float newMaxWeight ) noexcept : Weight( UNKNOWN_WEIGHT, newUnitOfWeight, newMaxWeight )
-{
-}
+// ↓ #6  newUnitOfWeight and newMaxWeight provided: delegates to #7 with default value for _weight
+Weight::Weight( UnitOfWeight newUnitOfWeight, float newMaxWeight ) noexcept : Weight( UNKNOWN_WEIGHT, newUnitOfWeight, newMaxWeight ){}
 
-// ↓ #7
+// ↓ #7  all member variables provided as parameters
 Weight::Weight( float newWeight, Weight::UnitOfWeight newUnitOfWeight, float newMaxWeight ) noexcept : _unitOfWeight{ newUnitOfWeight }
 {
 	if( maxWeightIsValid( newMaxWeight ))
@@ -234,8 +222,7 @@ void Weight::setWeight( float newWeight, Weight::UnitOfWeight weightUnits )
 {
 	if( weightIsValid( newWeight ))
 	{
-		float convertedWeight = convertWeight( newWeight, getUnitOfWeight(), weightUnits );
-		_weight = convertedWeight;
+		_weight = convertWeight( newWeight, _unitOfWeight, weightUnits );
 	}
 }
 
