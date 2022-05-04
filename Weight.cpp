@@ -170,7 +170,7 @@ std::ostream &operator<<( std::ostream &lhs_stream, const Weight::UnitOfWeight r
 		case Weight::SLUGS:
 			return lhs_stream << Weight::SLUG_LITERAL;
 		default:
-			throw out_of_range( "The unit can’t be mapped to a string" );
+			throw invalid_argument( "The unit can’t be mapped to a string" );
 	}
 }
 
@@ -222,6 +222,7 @@ void Weight::setWeight( const float newWeight, Weight::UnitOfWeight weightUnits 
 {
 	if( weightIsValid( newWeight ))
 	{
+		_bIsKnown = true;
 		_weight = convertWeight( newWeight, _unitOfWeight, weightUnits );
 	}
 }
@@ -252,7 +253,7 @@ void Weight::setMaxWeight( const float newMaxWeight )
 	// Can only set _maxWeight if it isn't already set    ↓
 	if( maxWeightIsValid( newMaxWeight ) && !_bHasMax)
 	{
-		_maxWeight = newMaxWeight;
 		_bHasMax = true;
+		_maxWeight = newMaxWeight;
 	}
 }
